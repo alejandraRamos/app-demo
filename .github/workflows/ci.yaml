@@ -52,7 +52,7 @@ jobs:
 
       - name: Update HTML with commit ID
         run: |
-          echo "window.commitId = \"${{ env.VERSION }}\";" > ./path-to-your-frontend/index.js
+          echo "window.commitId = \"${{ env.VERSION }}\";" > ./app.js
         env:
          COMMIT_ID: ${{ env.VERSION }}
 
