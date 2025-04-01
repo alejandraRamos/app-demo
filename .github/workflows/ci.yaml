@@ -50,6 +50,12 @@ jobs:
           COMMIT_SHA=$(git rev-parse --short HEAD)
           echo "VERSION=$COMMIT_SHA" >> $GITHUB_ENV
 
+      - name: Update HTML with commit ID
+        run: |
+          echo "window.commitId = \"${{ env.VERSION }}\";" > ./path-to-your-frontend/index.js
+        env:
+         COMMIT_ID: ${{ env.VERSION }}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:

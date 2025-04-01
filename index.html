@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GitOps Bienvenida</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Demo GitOps</title>
+  <script src="app.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <h1 id="message">Bienvenidos al mundo GitOps v0.0.0</h1>
-    <input type="text" id="versionInput" placeholder="Ingrese la versión (ej. vx.x.x)">
-    <button onclick="updateMessage()">Actualizar Mensaje</button>
-  </div>
-
-  <script src="app.js"></script>
+  <h1 id="message">Bienvenidos al mundo GitOps (Commit ID no disponible)</h1>
+  
+  <script>
+    // Simulando que la variable commitId es pasada desde el backend o configurada por el flujo de CI
+    // En un flujo de CI, esto podría ser generado dinámicamente y cargado en la página.
+    window.commitId = "<commit-id-aqui>"; // Aquí es donde el commit ID se asignaría dinámicamente
+    
+    // Actualizar el mensaje con la versión/commit ID
+    updateMessage();
+  </script>
 </body>
 </html>
