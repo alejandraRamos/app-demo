@@ -28,7 +28,7 @@ jobs:
         run: |
           cd gitops-repo
           COMMIT_ID=${{ env.COMMIT_ID }}
-          yq -i '.spec.template.spec.containers[0].image = "alejandraramos/demo:'$COMMIT_ID'"' apps/demo-app/deployment.yaml
+          yq -i '.spec.template.spec.containers[0].image = "alejandraramos/demo:'"$COMMIT_ID"'"' apps/demo-app/deployment.yaml
       - name: Commit y Push de cambios
         run: |
           cd gitops-repo
