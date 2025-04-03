@@ -27,8 +27,7 @@ jobs:
       - name: Actualizar imagen
         run: |
           cd gitops-repo
-          yq -i '.spec.template.spec.containers[0].image = "alejandraramos/demo:${{ env.SHORT_SHA }}"' apps/demo-app/deployment.yaml
-
+          yq -i '.spec.template.spec.containers[0].image = "alejandraramos/demo:${{ env.COMMIT_ID }}"' apps/demo-app/deployment.yaml
       - name: Commit y Push de cambios
         run: |
           cd gitops-repo
