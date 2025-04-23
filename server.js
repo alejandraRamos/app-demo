@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
           <h1>${WELCOME_MESSAGE}</h1>
           <p><strong>Secret1:</strong> ${SECRET1}</p>
           <p><strong>Secret2:</strong> ${SECRET2}</p>
+          <p><strong>text1:</strong>"hola mundo"</p>
           <footer>${FOOTER_TEXT}</footer>
         </body>
       </html>
