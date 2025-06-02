@@ -1,42 +1,42 @@
-name: CD 
+# name: CD 
 
-on:
-  workflow_run:
-    workflows: ["CI Pipeline"]  # Nombre exacto del CI
-    types:
-      - completed
+# on:
+#   workflow_run:
+#     workflows: ["CI Pipeline"]  # Nombre exacto del CI
+#     types:
+#       - completed
 
-jobs:
-  update-deployment:
-    runs-on: ubuntu-latest
+# jobs:
+#   update-deployment:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repo del servicio
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout repo del servicio
+#         uses: actions/checkout@v4
 
-      - name: Extraer ID del commit
-        run: echo "COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+#       - name: Extraer ID del commit
+#         run: echo "COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Checkout repo de GitOps
-        uses: actions/checkout@v4
-        with:
-          repository: alejandraRamos/argocd-gitops
-          token: ${{ secrets.GITOPS_REPO_TOKEN }} # Se necesita un token con permisos de escritura
-          path: gitops-repo
+#       - name: Checkout repo de GitOps
+#         uses: actions/checkout@v4
+#         with:
+#           repository: alejandraRamos/argocd-gitops
+#           token: ${{ secrets.GITOPS_REPO_TOKEN }} # Se necesita un token con permisos de escritura
+#           path: gitops-repo
 
-      - name: Actualizar imagen
-        run: |
-          cd gitops-repo
-          IMAGE_TAG="alejandraramos/demo:${{ env.COMMIT_ID }}"
-          sed -i 's|image: alejandraramos/demo:.*|image: alejandraramos/demo:${{ env.COMMIT_ID }}|' apps/demo-app/deployment.yaml
-        # yq -i ".spec.template.spec.containers[0].image = \"${IMAGE_TAG}\"" apps/demo-app/deployment.yaml
-        # COMMIT_ID=${{ env.COMMIT_ID }}
-        # yq -i '.spec.template.spec.containers[0].image = "alejandraramos/demo:'${{ env.COMMIT_ID }}'"' apps/demo-app/deployment.yaml
-      - name: Commit y Push de cambios
-        run: |
-          cd gitops-repo
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add apps/demo-app/deployment.yaml
-          git commit -m "Update image tag to ${{ env.COMMIT_ID }}"
-          git push
+#       - name: Actualizar imagen
+#         run: |
+#           cd gitops-repo
+#           IMAGE_TAG="alejandraramos/demo:${{ env.COMMIT_ID }}"
+#           sed -i 's|image: alejandraramos/demo:.*|image: alejandraramos/demo:${{ env.COMMIT_ID }}|' apps/demo-app/deployment.yaml
+#         # yq -i ".spec.template.spec.containers[0].image = \"${IMAGE_TAG}\"" apps/demo-app/deployment.yaml
+#         # COMMIT_ID=${{ env.COMMIT_ID }}
+#         # yq -i '.spec.template.spec.containers[0].image = "alejandraramos/demo:'${{ env.COMMIT_ID }}'"' apps/demo-app/deployment.yaml
+#       - name: Commit y Push de cambios
+#         run: |
+#           cd gitops-repo
+#           git config user.name "github-actions"
+#           git config user.email "actions@github.com"
+#           git add apps/demo-app/deployment.yaml
+#           git commit -m "Update image tag to ${{ env.COMMIT_ID }}"
+#           git push
