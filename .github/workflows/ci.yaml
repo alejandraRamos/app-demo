@@ -26,6 +26,9 @@ jobs:
         run: npm ci
 
   build-and-push:
+    permissions:
+      id-token: write
+      contents: read
     needs: lint-and-test
     runs-on: ubuntu-latest
     steps:
