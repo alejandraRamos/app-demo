@@ -7,7 +7,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: demo-argocd
+  ECR_REPOSITORY: demo-app
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
